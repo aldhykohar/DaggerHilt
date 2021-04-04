@@ -14,23 +14,25 @@ import javax.inject.Singleton
  * Created by aldhykohar on 4/4/2021.
  */
 
-interface One{
+interface One {
     fun getName()
 }
 
-class ImplementOne @Inject constructor():One{
+class ImplementOne @Inject constructor(private val name: String) : One {
     override fun getName() {
-        Log.e("main", "my name is aldhy ", )
+        Log.e("main", "my name is $name ")
     }
 
 }
 
-class Main @Inject constructor(private val one: One){
-    fun getName(){
+class Main @Inject constructor(private val one: One) {
+    fun getName() {
         one.getName()
     }
 }
 
+
+//for interface
 /*@Module
 @InstallIn(ApplicationComponent::class)
 abstract class AppModule{
@@ -42,11 +44,19 @@ abstract class AppModule{
     ):One
 }*/
 
+
+
 @Module
 @InstallIn(ApplicationComponent::class)
-class AppModule{
+class AppModule {
 
     @Provides
     @Singleton
-    fun binding():One = ImplementOne()
+    fun getName(): String = "aldhy"
+
+    @Provides
+    @Singleton
+    fun binding(
+        name: String
+    ): One = ImplementOne(name)
 }
