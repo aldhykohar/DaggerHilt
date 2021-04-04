@@ -3,6 +3,7 @@ package com.aldhykohar.daggerhilt.demo
 import android.util.Log
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Inject
@@ -30,7 +31,7 @@ class Main @Inject constructor(private val one: One){
     }
 }
 
-@Module
+/*@Module
 @InstallIn(ApplicationComponent::class)
 abstract class AppModule{
 
@@ -39,4 +40,13 @@ abstract class AppModule{
     abstract fun binding(
         implementOne: ImplementOne
     ):One
+}*/
+
+@Module
+@InstallIn(ApplicationComponent::class)
+class AppModule{
+
+    @Provides
+    @Singleton
+    fun binding():One = ImplementOne()
 }
